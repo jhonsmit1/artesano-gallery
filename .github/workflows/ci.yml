@@ -1,0 +1,48 @@
+# CI — valida calidad del código en cada PR y push a main.
+# El despliegue lo hace Vercel (integración nativa con GitHub).
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+# Cancela ejecuciones anteriores de la misma rama/PR para ahorrar minutos.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    name: Lint · Typecheck · Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Build
+        run: npm run build
+        env:
+          # Valores públicos para que el build pase en CI.
+          # Los secretos reales viven en Vercel, no aquí.
+          NEXT_PUBLIC_SITE_URL: https://artesanogallery.com
+          NEXT_PUBLIC_SANITY_PROJECT_ID: w42warxd
+          NEXT_PUBLIC_SANITY_DATASET: production
+          NEXT_PUBLIC_SANITY_API_VERSION: "2024-10-01"
