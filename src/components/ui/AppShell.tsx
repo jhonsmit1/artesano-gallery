@@ -15,17 +15,18 @@ import { gsap } from "@/lib/gsap";
  * - Anima la salida con GSAP y expone `ready` por contexto.
  */
 export function AppShell({ children }: { children: React.ReactNode }) {
-  const [assetsLoaded, setAssetsLoaded] = useState(false);
+  // Inicialización lazy: si la ventana ya cargó al montar, arrancamos en true
+  // (evita un setState síncrono dentro del effect).
+  const [assetsLoaded, setAssetsLoaded] = useState(
+    () => typeof document !== "undefined" && document.readyState === "complete",
+  );
   const [ready, setReady] = useState(false);
   const overlayRef = useRef<HTMLDivElement>(null);
   const counterRef = useRef<HTMLSpanElement>(null);
 
-  // Espera a que la ventana termine de cargar (o un máximo de 6s).
+  // Si la ventana aún no cargó, escuchamos `load` (o un timeout de seguridad).
   useEffect(() => {
-    if (document.readyState === "complete") {
-      setAssetsLoaded(true);
-      return;
-    }
+    if (assetsLoaded) return;
     const onLoad = () => setAssetsLoaded(true);
     window.addEventListener("load", onLoad);
     // Salida temprana: no bloqueamos por assets diferidos (p. ej. la secuencia
@@ -35,7 +36,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       window.removeEventListener("load", onLoad);
       window.clearTimeout(safety);
     };
-  }, []);
+  }, [assetsLoaded]);
 
   // Bloquea el scroll del body mientras el preloader está visible.
   useEffect(() => {

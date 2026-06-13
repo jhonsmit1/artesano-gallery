@@ -13,6 +13,7 @@ export type Social = { platform: string; url: string };
 
 export type SiteSettings = {
   brandName?: string;
+  logoUrl?: string;
   tagline?: string;
   navLinks?: NavLink[];
   menuPdfUrl?: string;

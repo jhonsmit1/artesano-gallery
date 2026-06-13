@@ -21,6 +21,7 @@ export default async function SiteLayout({
             brandName={settings.brandName ?? "Artesano Gallery"}
             navLinks={settings.navLinks ?? []}
             menuPdfUrl={settings.menuPdfUrl}
+            logoUrl={settings.logoUrl}
           />
           <main>{children}</main>
           <Footer settings={settings} />

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useRef, useState } from "react";
 
 import { useGSAP } from "@gsap/react";
@@ -8,13 +9,16 @@ import { gsap, ScrollTrigger } from "@/lib/gsap";
 import { getLenis } from "@/lib/lenis";
 import type { NavLink } from "@/sanity/lib/types";
 
+import { ArtesanoMark } from "@/components/ui/ArtesanoMark";
+
 type Props = {
   brandName: string;
   navLinks: NavLink[];
   menuPdfUrl?: string;
+  logoUrl?: string;
 };
 
-export function SmartHeader({ brandName, navLinks, menuPdfUrl }: Props) {
+export function SmartHeader({ brandName, navLinks, menuPdfUrl, logoUrl }: Props) {
   const headerRef = useRef<HTMLElement>(null);
   const [active, setActive] = useState<string>(navLinks[0]?.anchor ?? "");
   const [open, setOpen] = useState(false);
@@ -89,9 +93,21 @@ export function SmartHeader({ brandName, navLinks, menuPdfUrl }: Props) {
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
         <button
           onClick={() => scrollTo(navLinks[0]?.anchor ?? "hero")}
-          className="text-sm font-semibold uppercase tracking-[0.25em] text-neutral-100"
+          aria-label={brandName}
+          className="flex items-center"
         >
-          {brandName}
+          {logoUrl ? (
+            <Image
+              src={logoUrl}
+              alt={brandName}
+              width={160}
+              height={48}
+              className="h-10 w-auto object-contain"
+              priority
+            />
+          ) : (
+            <ArtesanoMark />
+          )}
         </button>
 
         <ul className="hidden items-center gap-8 md:flex">

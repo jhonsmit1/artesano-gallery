@@ -7,11 +7,8 @@ export const FALLBACK_SETTINGS: SiteSettings = {
   brandName: "Artesano Gallery",
   tagline: "Mixología, arte y atmósfera",
   navLinks: [
-    { label: "Inicio", anchor: "hero" },
-    { label: "Momentos", anchor: "momentos" },
-    { label: "Concepto", anchor: "concept" },
-    { label: "Experiencia", anchor: "experience" },
-    { label: "El Espacio", anchor: "space" },
+    { label: "Home", anchor: "hero" },
+    { label: "Historia", anchor: "historia" },
     { label: "Contacto", anchor: "contact" },
   ],
   socials: [

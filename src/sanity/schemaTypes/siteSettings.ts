@@ -19,6 +19,16 @@ export const siteSettings = defineType({
       initialValue: "Artesano Gallery",
     }),
     defineField({
+      name: "logo",
+      title: "Logo del header",
+      description:
+        "Logo que aparece en la barra superior. PNG/SVG con fondo transparente. Si se deja vacío, se usa el ícono de la copa por defecto.",
+      type: "image",
+      group: "general",
+      options: { hotspot: true },
+      fields: [{ name: "alt", title: "Texto alternativo", type: "string" }],
+    }),
+    defineField({
       name: "tagline",
       title: "Eslogan",
       type: "string",

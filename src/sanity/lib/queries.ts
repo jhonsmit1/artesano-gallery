@@ -1,11 +1,5 @@
 import { groq } from "next-sanity";
 
-// Proyección reutilizable para assets de archivo (videos, PDF).
-const fileAsset = `{
-  "url": asset->url,
-  "originalFilename": asset->originalFilename
-}`;
-
 const imageAsset = `{
   ...,
   "lqip": asset->metadata.lqip,
@@ -16,6 +10,7 @@ const imageAsset = `{
 export const SITE_SETTINGS_QUERY = groq`
 *[_type == "siteSettings"][0]{
   brandName,
+  "logoUrl": logo.asset->url,
   tagline,
   navLinks[]{ label, "anchor": anchor },
   "menuPdfUrl": menuPdf.asset->url,
