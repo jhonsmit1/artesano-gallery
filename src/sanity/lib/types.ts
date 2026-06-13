@@ -49,6 +49,22 @@ export type HeroContent = {
   videoMobileUrl?: string;
 };
 
+export type StoryContent = {
+  // Pantalla de bienvenida
+  logo?: SanityImage;
+  welcomeCaption?: string;
+  background?: "black" | "white";
+  // Columna izquierda (historia)
+  eyebrow?: string;
+  title?: string;
+  body?: PortableTextBlock[];
+  ctaLabel?: string;
+  ctaHref?: string;
+  // Columna derecha (media)
+  mediaPosterUrl?: string;
+  mediaVideoUrl?: string;
+};
+
 export type ConceptContent = {
   eyebrow?: string;
   title?: string;
@@ -95,6 +111,7 @@ export type ContactContent = {
 
 export type HomeContent = {
   hero?: HeroContent;
+  story?: StoryContent;
   moments?: MomentsContent;
   concept?: ConceptContent;
   experience?: ScrollVideoContent;

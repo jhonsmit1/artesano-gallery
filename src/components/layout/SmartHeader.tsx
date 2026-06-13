@@ -46,14 +46,18 @@ export function SmartHeader({ brandName, navLinks, menuPdfUrl }: Props) {
       });
 
       // Estado activo del menú según la sección en pantalla.
-      const sectionTriggers = navLinks.map((link) =>
-        ScrollTrigger.create({
-          trigger: `#${link.anchor}`,
-          start: "top center",
-          end: "bottom center",
-          onToggle: (self) => self.isActive && setActive(link.anchor),
-        }),
-      );
+      // Solo creamos el trigger si la sección existe en el DOM (evita errores
+      // si un nav link del CMS apunta a un ancla inexistente).
+      const sectionTriggers = navLinks
+        .filter((link) => document.getElementById(link.anchor))
+        .map((link) =>
+          ScrollTrigger.create({
+            trigger: `#${link.anchor}`,
+            start: "top center",
+            end: "bottom center",
+            onToggle: (self) => self.isActive && setActive(link.anchor),
+          }),
+        );
 
       return () => {
         directionTrigger.kill();

@@ -1,0 +1,23 @@
+<svg width="440" height="320" viewBox="0 0 440 320" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Artesano Bar">
+  <!-- Monograma: copa de cóctel sobre arco industrial -->
+  <g stroke="#E8D2A8" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Arco (fachada/puerta) -->
+    <path d="M120 150 V92 a100 100 0 0 1 200 0 V150" opacity="0.55"/>
+    <!-- Copa: triángulo -->
+    <path d="M178 96 H262 L220 150 Z"/>
+    <!-- Tallo y base -->
+    <path d="M220 150 V196 M192 200 H248"/>
+    <!-- Aceituna / detalle -->
+    <circle cx="234" cy="118" r="5" fill="#E8D2A8" stroke="none"/>
+    <!-- Líneas de remache (metal forjado) -->
+    <path d="M150 150 H290" opacity="0.4"/>
+  </g>
+
+  <!-- Wordmark -->
+  <text x="220" y="252" text-anchor="middle"
+        font-family="Georgia, 'Times New Roman', serif"
+        font-size="46" letter-spacing="8" fill="#F5EFE3">ARTESANO</text>
+  <text x="220" y="288" text-anchor="middle"
+        font-family="Georgia, 'Times New Roman', serif"
+        font-size="20" letter-spacing="14" fill="#E8D2A8" opacity="0.8">B A R</text>
+</svg>

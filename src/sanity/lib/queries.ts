@@ -37,6 +37,13 @@ export const HOME_QUERY = groq`
     "videoDesktopUrl": coalesce(videoDesktopUrl, videoDesktop.asset->url),
     "videoMobileUrl": coalesce(videoMobileUrl, videoMobile.asset->url)
   },
+  story{
+    "logo": logo{ ..., "lqip": asset->metadata.lqip, "aspectRatio": asset->metadata.dimensions.aspectRatio },
+    welcomeCaption, background,
+    eyebrow, title, body, ctaLabel, ctaHref,
+    "mediaPosterUrl": mediaPoster.asset->url,
+    "mediaVideoUrl": coalesce(mediaVideoUrl, mediaVideo.asset->url)
+  },
   moments{
     eyebrow, title,
     items[]{ title, caption, image${imageAsset} }

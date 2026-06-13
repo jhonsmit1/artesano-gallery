@@ -53,6 +53,30 @@ export const FALLBACK_HOME: HomeContent = {
     ctaLabel: "Descubre",
     ctaAnchor: "momentos",
   },
+  story: {
+    welcomeCaption: "Conoce más",
+    background: "black",
+    eyebrow: "Nuestra historia",
+    title: "Artesano Bar",
+    body: [
+      {
+        _type: "block",
+        _key: "s1",
+        style: "normal",
+        markDefs: [],
+        children: [
+          {
+            _type: "span",
+            _key: "s1s",
+            text: "Transformamos un espacio industrial en un refugio donde el metal forjado a mano, la arquitectura y la coctelería de autor se encuentran. Cada detalle es parte de un relato pensado para los sentidos.",
+            marks: [],
+          },
+        ],
+      },
+    ],
+    ctaLabel: "Conoce el menú",
+    ctaHref: "#contact",
+  },
   moments: {
     eyebrow: "El recorrido",
     title: "Cinco momentos, una atmósfera",

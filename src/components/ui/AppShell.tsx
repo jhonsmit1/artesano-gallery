@@ -28,7 +28,9 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     }
     const onLoad = () => setAssetsLoaded(true);
     window.addEventListener("load", onLoad);
-    const safety = window.setTimeout(() => setAssetsLoaded(true), 6000);
+    // Salida temprana: no bloqueamos por assets diferidos (p. ej. la secuencia
+    // de frames del hero, que carga en segundo plano).
+    const safety = window.setTimeout(() => setAssetsLoaded(true), 2500);
     return () => {
       window.removeEventListener("load", onLoad);
       window.clearTimeout(safety);
