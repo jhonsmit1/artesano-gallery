@@ -39,24 +39,17 @@ export const HOME_QUERY = groq`
     "mediaPosterUrl": mediaPoster.asset->url,
     "mediaVideoUrl": coalesce(mediaVideoUrl, mediaVideo.asset->url)
   },
-  moments{
+  menu{
     eyebrow, title,
-    items[]{ title, caption, image${imageAsset} }
+    cards[]{
+      title,
+      image${imageAsset},
+      "pdfUrl": coalesce(pdfUrl, pdf.asset->url)
+    }
   },
-  concept{
-    eyebrow, title, body,
-    media${imageAsset},
-    "mediaVideoUrl": coalesce(mediaVideoUrl, mediaVideo.asset->url)
-  },
-  experience{
-    eyebrow, title, subtitle,
-    "posterUrl": poster.asset->url,
-    "videoDesktopUrl": coalesce(videoDesktopUrl, videoDesktop.asset->url),
-    "videoMobileUrl": coalesce(videoMobileUrl, videoMobile.asset->url)
-  },
-  space{
-    eyebrow, title, intro,
-    gallery[]${imageAsset}
+  closing{
+    eyebrow, title, subtitle, ctaLabel, ctaAnchor,
+    "posterUrl": poster.asset->url
   },
   contact{ eyebrow, title, text, buttonLabel, successMessage }
 }`;

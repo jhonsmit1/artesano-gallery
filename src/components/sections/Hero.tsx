@@ -307,7 +307,7 @@ export function Hero({ data }: { data: HeroContent }) {
         {data.ctaLabel && (
           <a
             data-hero-fade
-            href={`#${data.ctaAnchor ?? "concept"}`}
+            href={`#${data.ctaAnchor ?? "historia"}`}
             className="mt-10 inline-block rounded-full bg-white px-8 py-3 text-sm font-medium uppercase tracking-widest text-neutral-950 transition-transform hover:scale-105"
           >
             {data.ctaLabel}

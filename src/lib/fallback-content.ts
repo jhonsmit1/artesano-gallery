@@ -9,6 +9,7 @@ export const FALLBACK_SETTINGS: SiteSettings = {
   navLinks: [
     { label: "Home", anchor: "hero" },
     { label: "Historia", anchor: "historia" },
+    { label: "Menús", anchor: "menus" },
     { label: "Contacto", anchor: "contact" },
   ],
   socials: [
@@ -74,68 +75,22 @@ export const FALLBACK_HOME: HomeContent = {
     ctaLabel: "Conoce el menú",
     ctaHref: "#contact",
   },
-  moments: {
-    eyebrow: "El recorrido",
-    title: "Cinco momentos, una atmósfera",
-    items: [
-      {
-        title: "Llegar",
-        caption:
-          "La fachada anuncia el lugar: piedra, hierro y una luz que invita a entrar.",
-      },
-      {
-        title: "Cruzar",
-        caption:
-          "El umbral cambia el ritmo. Afuera la ciudad; adentro, otra temperatura.",
-      },
-      {
-        title: "Descubrir",
-        caption:
-          "La obra local convive con la barra. Cada rincón es una pieza viva.",
-      },
-      {
-        title: "Estar",
-        caption:
-          "Madera, ámbar y conversación. El cóctel llega como parte del relato.",
-      },
-      {
-        title: "Volver",
-        caption: "El lugar se queda contigo mucho después de la última copa.",
-      },
+  menu: {
+    eyebrow: "La Carta",
+    title: "El Menú",
+    cards: [
+      { title: "Bebidas" },
+      { title: "Comida" },
+      { title: "Eventos" },
     ],
   },
-  concept: {
-    eyebrow: "The Concept",
-    title: "Una narrativa líquida",
-    body: [
-      {
-        _type: "block",
-        _key: "c1",
-        style: "normal",
-        markDefs: [],
-        children: [
-          {
-            _type: "span",
-            _key: "c1s",
-            text: "Cada cóctel es una pieza pensada para despertar los sentidos. Combinamos técnica, producto local y diseño para crear momentos irrepetibles.",
-            marks: [],
-          },
-        ],
-      },
-    ],
-  },
-  experience: {
-    eyebrow: "The Experience",
-    title: "Déjate llevar",
+  closing: {
+    eyebrow: "El atardecer",
+    title: "Hasta la próxima copa",
     subtitle:
-      "Sube un video en el Studio y se reproducirá al ritmo de tu scroll.",
-  },
-  space: {
-    eyebrow: "The Space",
-    title: "El espacio",
-    intro:
-      "Un ambiente que combina arquitectura, arte y penumbra cálida. Conecta tu galería desde el CMS.",
-    gallery: [],
+      "Cruza las puertas y llévate la atmósfera. Te esperamos al caer la tarde.",
+    ctaLabel: "Reserva tu experiencia",
+    ctaAnchor: "contact",
   },
   contact: {
     eyebrow: "Contacto",

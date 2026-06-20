@@ -7,10 +7,8 @@ export const home = defineType({
   groups: [
     { name: "hero", title: "Hero", default: true },
     { name: "story", title: "Bienvenida e Historia" },
-    { name: "moments", title: "Momentos (recorrido)" },
-    { name: "concept", title: "The Concept" },
-    { name: "experience", title: "Experiencia (scroll-video)" },
-    { name: "space", title: "The Space" },
+    { name: "menu", title: "Carrusel del Menú" },
+    { name: "closing", title: "Cierre (salida/atardecer)" },
     { name: "contact", title: "Contacto" },
   ],
   fields: [
@@ -146,39 +144,51 @@ export const home = defineType({
         },
       ],
     }),
+    // -------------------- MENU (Carrusel del menú) --------------------
     defineField({
-      name: "moments",
-      title: "Momentos / Recorrido",
+      name: "menu",
+      title: "Carrusel del Menú (La Carta)",
       description:
-        "Galería horizontal por la que se pasa al hacer scroll. Sube una imagen por momento con su título y descripción.",
+        "Tarjetas horizontales (Bebidas, Comida, Eventos...). Cada una con foto, nombre y un PDF que se abre en otra pestaña.",
       type: "object",
-      group: "moments",
+      group: "menu",
       fields: [
         { name: "eyebrow", title: "Antetítulo", type: "string" },
         { name: "title", title: "Título de la sección", type: "string" },
         {
-          name: "items",
-          title: "Momentos",
+          name: "cards",
+          title: "Tarjetas del menú",
           type: "array",
           of: [
             {
               type: "object",
               fields: [
-                { name: "title", title: "Título", type: "string" },
                 {
-                  name: "caption",
-                  title: "Descripción",
-                  type: "text",
-                  rows: 2,
+                  name: "title",
+                  title: "Nombre (ej: Bebidas)",
+                  type: "string",
                 },
                 {
                   name: "image",
-                  title: "Imagen",
+                  title: "Foto",
                   type: "image",
                   options: { hotspot: true },
                   fields: [
                     { name: "alt", title: "Texto alternativo", type: "string" },
                   ],
+                },
+                {
+                  name: "pdf",
+                  title: "PDF (carta de esta categoría)",
+                  type: "file",
+                  options: { accept: "application/pdf" },
+                },
+                {
+                  name: "pdfUrl",
+                  title: "URL PDF externo (alternativa)",
+                  description:
+                    "Si el PDF está hospedado fuera, pega la URL aquí (tiene prioridad sobre el archivo).",
+                  type: "url",
                 },
               ],
               preview: {
@@ -189,108 +199,35 @@ export const home = defineType({
         },
       ],
     }),
-    // -------------------- CONCEPT --------------------
+    // -------------------- CLOSING (Cierre / atardecer) --------------------
     defineField({
-      name: "concept",
-      title: "The Concept / Narrativa",
-      type: "object",
-      group: "concept",
-      fields: [
-        { name: "eyebrow", title: "Antetítulo", type: "string" },
-        { name: "title", title: "Título", type: "string" },
-        {
-          name: "body",
-          title: "Texto narrativo",
-          type: "array",
-          of: [{ type: "block" }],
-        },
-        {
-          name: "media",
-          title: "Imagen",
-          type: "image",
-          options: { hotspot: true },
-          fields: [{ name: "alt", title: "Texto alternativo", type: "string" }],
-        },
-        {
-          name: "mediaVideo",
-          title: "Video interactivo (archivo)",
-          type: "file",
-          options: { accept: "video/*" },
-        },
-        {
-          name: "mediaVideoUrl",
-          title: "URL video interactivo (externo)",
-          type: "url",
-        },
-      ],
-    }),
-    // -------------------- EXPERIENCE (scroll-video) --------------------
-    defineField({
-      name: "experience",
-      title: "Experiencia / Video por scroll",
+      name: "closing",
+      title: "Cierre (salida / atardecer)",
       description:
-        "Video cinematográfico cuya reproducción avanza con el scroll. Para que el avance sea fluido, exporta el video con keyframes frecuentes (GOP corto).",
+        "Escena espejo del Hero: la perspectiva avanza desde el interior hacia afuera cruzando las puertas, revelando el atardecer. Texto opcional y botón a contacto.",
       type: "object",
-      group: "experience",
+      group: "closing",
       fields: [
         { name: "eyebrow", title: "Antetítulo", type: "string" },
         { name: "title", title: "Título", type: "string" },
         { name: "subtitle", title: "Subtítulo", type: "text", rows: 2 },
         {
+          name: "ctaLabel",
+          title: "Texto del botón",
+          type: "string",
+          initialValue: "Reserva tu experiencia",
+        },
+        {
+          name: "ctaAnchor",
+          title: "Ancla del botón (sección destino)",
+          type: "string",
+          initialValue: "contact",
+        },
+        {
           name: "poster",
           title: "Imagen póster (mientras carga)",
           type: "image",
           options: { hotspot: true },
-        },
-        {
-          name: "videoDesktop",
-          title: "Video (Desktop) — archivo",
-          type: "file",
-          options: { accept: "video/*" },
-        },
-        {
-          name: "videoMobile",
-          title: "Video (Mobile) — archivo",
-          type: "file",
-          options: { accept: "video/*" },
-        },
-        {
-          name: "videoDesktopUrl",
-          title: "URL video Desktop (Cloudinary/Vercel Blob)",
-          description: "Alternativa recomendada: hospeda el video fuera del CMS.",
-          type: "url",
-        },
-        {
-          name: "videoMobileUrl",
-          title: "URL video Mobile (externo)",
-          type: "url",
-        },
-      ],
-    }),
-    // -------------------- SPACE --------------------
-    defineField({
-      name: "space",
-      title: "The Space / Galería",
-      type: "object",
-      group: "space",
-      fields: [
-        { name: "eyebrow", title: "Antetítulo", type: "string" },
-        { name: "title", title: "Título", type: "string" },
-        { name: "intro", title: "Introducción", type: "text", rows: 3 },
-        {
-          name: "gallery",
-          title: "Galería de imágenes",
-          type: "array",
-          of: [
-            {
-              type: "image",
-              options: { hotspot: true },
-              fields: [
-                { name: "alt", title: "Texto alternativo", type: "string" },
-              ],
-            },
-          ],
-          options: { layout: "grid" },
         },
       ],
     }),

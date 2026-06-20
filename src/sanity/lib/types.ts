@@ -66,40 +66,25 @@ export type StoryContent = {
   mediaVideoUrl?: string;
 };
 
-export type ConceptContent = {
-  eyebrow?: string;
+export type MenuCard = {
   title?: string;
-  body?: PortableTextBlock[];
-  media?: SanityImage;
-  mediaVideoUrl?: string;
+  image?: SanityImage;
+  pdfUrl?: string;
 };
 
-export type ScrollVideoContent = {
+export type MenuContent = {
+  eyebrow?: string;
+  title?: string;
+  cards?: MenuCard[];
+};
+
+export type ClosingContent = {
   eyebrow?: string;
   title?: string;
   subtitle?: string;
+  ctaLabel?: string;
+  ctaAnchor?: string;
   posterUrl?: string;
-  videoDesktopUrl?: string;
-  videoMobileUrl?: string;
-};
-
-export type Moment = {
-  title?: string;
-  caption?: string;
-  image?: SanityImage;
-};
-
-export type MomentsContent = {
-  eyebrow?: string;
-  title?: string;
-  items?: Moment[];
-};
-
-export type SpaceContent = {
-  eyebrow?: string;
-  title?: string;
-  intro?: string;
-  gallery?: SanityImage[];
 };
 
 export type ContactContent = {
@@ -113,9 +98,7 @@ export type ContactContent = {
 export type HomeContent = {
   hero?: HeroContent;
   story?: StoryContent;
-  moments?: MomentsContent;
-  concept?: ConceptContent;
-  experience?: ScrollVideoContent;
-  space?: SpaceContent;
+  menu?: MenuContent;
+  closing?: ClosingContent;
   contact?: ContactContent;
 };

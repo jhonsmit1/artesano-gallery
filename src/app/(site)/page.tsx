@@ -1,10 +1,8 @@
 import { getHome } from "@/lib/data";
 import { Hero } from "@/components/sections/Hero";
 import { Story } from "@/components/sections/Story";
-import { MomentsScroll } from "@/components/sections/MomentsScroll";
-import { Concept } from "@/components/sections/Concept";
-import { ScrollVideo } from "@/components/sections/ScrollVideo";
-import { Space } from "@/components/sections/Space";
+import { MenuCarousel } from "@/components/sections/MenuCarousel";
+import { ClosingScene } from "@/components/sections/ClosingScene";
 import { Contact } from "@/components/sections/Contact";
 
 export default async function HomePage() {
@@ -14,10 +12,8 @@ export default async function HomePage() {
     <>
       <Hero data={home.hero ?? {}} />
       <Story data={home.story ?? {}} />
-      <MomentsScroll data={home.moments ?? {}} />
-      <Concept data={home.concept ?? {}} />
-      <ScrollVideo data={home.experience ?? {}} />
-      <Space data={home.space ?? {}} />
+      <MenuCarousel data={home.menu ?? {}} />
+      <ClosingScene data={home.closing ?? {}} />
       <Contact data={home.contact ?? {}} />
     </>
   );
