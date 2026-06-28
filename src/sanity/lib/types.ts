@@ -17,6 +17,7 @@ export type SiteSettings = {
   tagline?: string;
   navLinks?: NavLink[];
   menuPdfUrl?: string;
+  reservationUrl?: string;
   socials?: Social[];
   seo?: {
     metaTitle?: string;
@@ -35,6 +36,7 @@ export type SiteSettings = {
     country?: string;
     geo?: { lat?: number; lng?: number };
     openingHours?: string[];
+    hoursText?: string;
     keywordsToExclude?: string[];
   };
 };

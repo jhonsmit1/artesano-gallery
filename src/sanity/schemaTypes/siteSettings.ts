@@ -66,6 +66,14 @@ export const siteSettings = defineType({
       options: { accept: "application/pdf" },
     }),
     defineField({
+      name: "reservationUrl",
+      title: "Enlace de reservas",
+      description:
+        "URL del sistema de reservas (ej: OpenTable, Resy) o deja vacío para enlazar a la sección de contacto.",
+      type: "url",
+      group: "general",
+    }),
+    defineField({
       name: "socials",
       title: "Redes sociales",
       type: "array",
@@ -131,9 +139,19 @@ export const siteSettings = defineType({
         },
         {
           name: "openingHours",
-          title: "Horarios (ej: Mo-Fr 18:00-02:00)",
+          title: "Horarios (formato SEO, ej: Mo-Su 16:00-02:00)",
+          description:
+            "SOLO para Google/SEO (Schema.org). Usa el formato técnico: días en inglés abreviado y hora 24h. Ej: 'Mo-Su 16:00-02:00'. No se muestra en la web.",
           type: "array",
           of: [{ type: "string" }],
+        },
+        {
+          name: "hoursText",
+          title: "Horarios (texto para mostrar en la web)",
+          description:
+            "Lo que ve el visitante en el footer. Escribe libremente. Ej: 'Lunes a Domingo' en una línea y '4pm - 2am' en otra (Enter para salto de línea).",
+          type: "text",
+          rows: 2,
         },
         {
           name: "keywordsToExclude",

@@ -14,12 +14,13 @@ export const SITE_SETTINGS_QUERY = groq`
   tagline,
   navLinks[]{ label, "anchor": anchor },
   "menuPdfUrl": menuPdf.asset->url,
+  reservationUrl,
   socials[]{ platform, url },
   seo{ metaTitle, metaDescription, "ogImageUrl": ogImage.asset->url },
   business{
     legalName, phone, email, priceRange,
     streetAddress, locality, region, postalCode, country,
-    geo, openingHours, keywordsToExclude
+    geo, openingHours, hoursText, keywordsToExclude
   }
 }`;
 
