@@ -1,15 +1,14 @@
 "use client";
 
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-import { useGSAP } from "@gsap/react";
-
-import { gsap, ScrollTrigger } from "@/lib/gsap";
+import { gsap } from "@/lib/gsap";
 import { getLenis } from "@/lib/lenis";
 import type { NavLink } from "@/sanity/lib/types";
 
-import { ArtesanoMark } from "@/components/ui/ArtesanoMark";
+// Logo local por defecto (se puede reemplazar desde el Studio).
+const FALLBACK_LOGO = "/logo.png";
 
 type Props = {
   brandName: string;
@@ -23,53 +22,28 @@ export function SmartHeader({ brandName, navLinks, menuPdfUrl, logoUrl }: Props)
   const [active, setActive] = useState<string>(navLinks[0]?.anchor ?? "");
   const [open, setOpen] = useState(false);
 
-  useGSAP(
-    () => {
-      const header = headerRef.current;
-      if (!header) return;
+  // Scrollspy con IntersectionObserver: marca la sección activa cuando su
+  // contenido cruza una banda en el CENTRO del viewport (posición real en
+  // pantalla, inmune al pin del Hero). Solo se marca cuando de verdad estás ahí.
+  useEffect(() => {
+    const sections = navLinks
+      .map((link) => document.getElementById(link.anchor))
+      .filter((el): el is HTMLElement => Boolean(el));
+    if (sections.length === 0) return;
 
-      // Animación suave del header (mostrar/ocultar).
-      const showHide = gsap.quickTo(header, "yPercent", {
-        duration: 0.4,
-        ease: "power2.out",
-      });
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActive(entry.target.id);
+        });
+      },
+      // Banda de ~20% en el centro del viewport.
+      { rootMargin: "-40% 0px -40% 0px", threshold: 0 },
+    );
 
-      // Ocultar al bajar, mostrar al subir (Sticky & Smart).
-      const directionTrigger = ScrollTrigger.create({
-        start: "top top",
-        end: "max",
-        onUpdate: (self) => {
-          if (self.scroll() < 80) {
-            showHide(0); // siempre visible cerca del top
-          } else if (self.direction === 1) {
-            showHide(-100); // bajando -> ocultar
-          } else {
-            showHide(0); // subiendo -> mostrar
-          }
-        },
-      });
-
-      // Estado activo del menú según la sección en pantalla.
-      // Solo creamos el trigger si la sección existe en el DOM (evita errores
-      // si un nav link del CMS apunta a un ancla inexistente).
-      const sectionTriggers = navLinks
-        .filter((link) => document.getElementById(link.anchor))
-        .map((link) =>
-          ScrollTrigger.create({
-            trigger: `#${link.anchor}`,
-            start: "top center",
-            end: "bottom center",
-            onToggle: (self) => self.isActive && setActive(link.anchor),
-          }),
-        );
-
-      return () => {
-        directionTrigger.kill();
-        sectionTriggers.forEach((t) => t.kill());
-      };
-    },
-    { dependencies: [navLinks] },
-  );
+    sections.forEach((s) => observer.observe(s));
+    return () => observer.disconnect();
+  }, [navLinks]);
 
   const scrollTo = (anchor: string) => {
     setOpen(false);
@@ -88,7 +62,7 @@ export function SmartHeader({ brandName, navLinks, menuPdfUrl, logoUrl }: Props)
   return (
     <header
       ref={headerRef}
-      className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-neutral-950/60 backdrop-blur-md"
+      className="fixed inset-x-0 top-0 z-50 bg-gradient-to-b from-[#f6f1e8]/55 to-transparent backdrop-blur-[3px]"
     >
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
         <button
@@ -96,35 +70,42 @@ export function SmartHeader({ brandName, navLinks, menuPdfUrl, logoUrl }: Props)
           aria-label={brandName}
           className="flex items-center"
         >
-          {logoUrl ? (
-            <Image
-              src={logoUrl}
-              alt={brandName}
-              width={160}
-              height={48}
-              className="h-10 w-auto object-contain"
-              priority
-            />
-          ) : (
-            <ArtesanoMark />
-          )}
+          <Image
+            src={logoUrl || FALLBACK_LOGO}
+            alt={brandName}
+            width={320}
+            height={180}
+            className="h-16 w-auto object-contain sm:h-20"
+            priority
+          />
         </button>
 
-        <ul className="hidden items-center gap-8 md:flex">
-          {navLinks.map((link) => (
-            <li key={link.anchor}>
-              <button
-                onClick={() => scrollTo(link.anchor)}
-                className={`text-sm uppercase tracking-widest transition-colors ${
-                  active === link.anchor
-                    ? "text-white"
-                    : "text-neutral-400 hover:text-neutral-200"
-                }`}
-              >
-                {link.label}
-              </button>
-            </li>
-          ))}
+        <ul className="hidden items-center gap-8 lg:flex">
+          {navLinks.map((link) => {
+            const isActive = active === link.anchor;
+            return (
+              <li key={link.anchor}>
+                <button
+                  onClick={() => scrollTo(link.anchor)}
+                  className={`group relative text-[13px] font-bold uppercase tracking-[0.15em] transition-colors duration-300 ${
+                    isActive
+                      ? "text-[#a9743c]"
+                      : "text-[#4a3728] hover:text-[#a9743c]"
+                  }`}
+                >
+                  {link.label}
+                  {/* Subrayado que marca la sección activa */}
+                  <span
+                    className={`absolute -bottom-2 left-0 h-[2px] rounded-full bg-[#a9743c] transition-all duration-300 ${
+                      isActive
+                        ? "w-full opacity-100"
+                        : "w-0 opacity-0 group-hover:w-full group-hover:opacity-60"
+                    }`}
+                  />
+                </button>
+              </li>
+            );
+          })}
         </ul>
 
         <div className="flex items-center gap-4">
@@ -133,30 +114,32 @@ export function SmartHeader({ brandName, navLinks, menuPdfUrl, logoUrl }: Props)
               href={menuPdfUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden rounded-full border border-white/30 px-5 py-2 text-xs uppercase tracking-widest text-neutral-100 transition-colors hover:bg-white hover:text-neutral-950 md:inline-block"
+              className="hidden rounded-full border border-[#a9743c]/50 px-5 py-2 text-xs uppercase tracking-widest text-[#6a5443] transition-colors hover:bg-[#a9743c] hover:text-[#f6f1e8] lg:inline-block"
             >
               Carta
             </a>
           )}
           <button
             aria-label="Abrir menú"
-            className="md:hidden"
+            className="lg:hidden"
             onClick={() => setOpen((v) => !v)}
           >
-            <span className="block h-px w-7 bg-neutral-100" />
-            <span className="mt-2 block h-px w-7 bg-neutral-100" />
+            <span className="block h-px w-7 bg-[#33241a]" />
+            <span className="mt-2 block h-px w-7 bg-[#33241a]" />
           </button>
         </div>
       </nav>
 
       {/* Menú móvil */}
       {open && (
-        <ul className="space-y-4 border-t border-white/10 px-6 py-6 md:hidden">
+        <ul className="space-y-4 border-t border-[#33241a]/10 bg-[#f6f1e8]/95 px-6 py-6 lg:hidden">
           {navLinks.map((link) => (
             <li key={link.anchor}>
               <button
                 onClick={() => scrollTo(link.anchor)}
-                className="text-lg uppercase tracking-widest text-neutral-200"
+                className={`text-lg font-bold uppercase tracking-widest transition-colors ${
+                  active === link.anchor ? "text-[#a9743c]" : "text-[#4a3728]"
+                }`}
               >
                 {link.label}
               </button>
@@ -168,7 +151,7 @@ export function SmartHeader({ brandName, navLinks, menuPdfUrl, logoUrl }: Props)
                 href={menuPdfUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-lg uppercase tracking-widest text-neutral-200"
+                className="text-lg uppercase tracking-widest text-[#6a5443]"
               >
                 Carta (PDF)
               </a>

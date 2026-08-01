@@ -16,7 +16,7 @@ function SubmitButton({ label }: { label: string }) {
     <button
       type="submit"
       disabled={pending}
-      className="group inline-flex items-center gap-2 rounded-full border border-amber-300/40 bg-amber-300/10 px-8 py-3 text-sm font-medium uppercase tracking-[0.2em] text-amber-100 transition-all duration-300 hover:border-amber-300 hover:bg-amber-300 hover:text-neutral-950 hover:shadow-[0_0_24px_rgba(245,210,140,0.45)] disabled:opacity-50"
+      className="group inline-flex items-center gap-2 rounded-full bg-[#a9743c] px-8 py-3 text-sm font-medium uppercase tracking-[0.2em] text-[#f6f1e8] transition-all duration-300 hover:bg-[#8f5f2e] hover:shadow-[0_8px_24px_rgba(169,116,60,0.4)] disabled:opacity-50"
     >
       {pending ? "Enviando…" : label}
       {!pending && (
@@ -74,7 +74,7 @@ export function ContactForm({
       <div>
         <label
           htmlFor="message"
-          className="mb-2 block text-xs uppercase tracking-widest text-amber-200/70"
+          className="mb-2 block text-xs uppercase tracking-widest text-[#a9743c]"
         >
           Mensaje
         </label>
@@ -82,7 +82,7 @@ export function ContactForm({
           id="message"
           name="message"
           rows={4}
-          className="w-full rounded-lg border border-white/15 bg-white/5 px-4 py-3 text-neutral-100 outline-none transition-colors placeholder:text-neutral-500 focus:border-amber-300/60 focus:bg-white/[0.07]"
+          className="w-full rounded-lg border border-[#dccdb4] bg-[#faf7f1] px-4 py-3 text-[#33241a] outline-none transition-colors placeholder:text-[#b3a48f] focus:border-[#a9743c] focus:bg-white"
         />
       </div>
 
@@ -120,7 +120,7 @@ function Field({
     <div>
       <label
         htmlFor={name}
-        className="mb-2 block text-xs uppercase tracking-widest text-amber-200/70"
+        className="mb-2 block text-xs uppercase tracking-widest text-[#a9743c]"
       >
         {label}
       </label>
@@ -130,7 +130,7 @@ function Field({
         type={type}
         required={required}
         aria-invalid={Boolean(error)}
-        className="w-full rounded-lg border border-white/15 bg-white/5 px-4 py-3 text-neutral-100 outline-none transition-colors placeholder:text-neutral-500 focus:border-amber-300/60 focus:bg-white/[0.07]"
+        className="w-full rounded-lg border border-[#dccdb4] bg-[#faf7f1] px-4 py-3 text-[#33241a] outline-none transition-colors placeholder:text-[#b3a48f] focus:border-[#a9743c] focus:bg-white"
       />
       {error && <p className="mt-1 text-xs text-red-400">{error}</p>}
     </div>

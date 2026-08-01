@@ -7,8 +7,9 @@ export const home = defineType({
   groups: [
     { name: "hero", title: "Hero", default: true },
     { name: "story", title: "Bienvenida e Historia" },
+    { name: "details", title: "Detalles (desplegables)" },
     { name: "menu", title: "Carrusel del Menú" },
-    { name: "closing", title: "Cierre (salida/atardecer)" },
+    { name: "gallery", title: "Collage (galería)" },
     { name: "contact", title: "Contacto" },
   ],
   fields: [
@@ -20,38 +21,31 @@ export const home = defineType({
       group: "hero",
       fields: [
         { name: "eyebrow", title: "Antetítulo", type: "string" },
-        { name: "title", title: "Título principal", type: "string" },
+        {
+          name: "title",
+          title: "Título principal",
+          type: "string",
+          initialValue: "Artesano Gallery",
+        },
         { name: "subtitle", title: "Subtítulo", type: "text", rows: 2 },
         { name: "ctaLabel", title: "Texto del botón", type: "string" },
         { name: "ctaAnchor", title: "Ancla del botón", type: "string" },
         {
-          name: "poster",
-          title: "Imagen póster (mientras carga el video)",
-          type: "image",
-          options: { hotspot: true },
-        },
-        {
-          name: "videoDesktop",
-          title: "Video de fondo (Desktop)",
-          type: "file",
-          options: { accept: "video/*" },
-        },
-        {
-          name: "videoMobile",
-          title: "Video de fondo (Mobile)",
-          type: "file",
-          options: { accept: "video/*" },
-        },
-        {
-          name: "videoDesktopUrl",
-          title: "URL video Desktop (Cloudinary/Vercel Blob)",
-          description: "Alternativa recomendada: hospeda el video fuera del CMS.",
-          type: "url",
-        },
-        {
-          name: "videoMobileUrl",
-          title: "URL video Mobile (Cloudinary/Vercel Blob)",
-          type: "url",
+          name: "images",
+          title: "Imágenes del Hero (galería con scroll)",
+          description:
+            "Se muestran una tras otra a medida que el visitante hace scroll. Sube 2 o más. La primera es la que se ve al cargar.",
+          type: "array",
+          of: [
+            {
+              type: "image",
+              options: { hotspot: true },
+              fields: [
+                { name: "alt", title: "Texto alternativo", type: "string" },
+              ],
+            },
+          ],
+          options: { layout: "grid" },
         },
       ],
     }),
@@ -66,31 +60,27 @@ export const home = defineType({
       fields: [
         // -- Pantalla de bienvenida --
         {
-          name: "logo",
-          title: "Logo (pantalla de bienvenida)",
-          description: "Logotipo centrado sobre fondo plano. PNG/SVG transparente recomendado.",
-          type: "image",
-          options: { hotspot: true },
-          fields: [{ name: "alt", title: "Texto alternativo", type: "string" }],
+          name: "welcomeImages",
+          title: "Imágenes de bienvenida (logo a pantalla completa)",
+          description:
+            "Se muestran a pantalla completa y se cruzan con el scroll. Como cubren toda la pantalla, no se ve el borde de la imagen. Sube 2 o 3.",
+          type: "array",
+          of: [
+            {
+              type: "image",
+              options: { hotspot: true },
+              fields: [
+                { name: "alt", title: "Texto alternativo", type: "string" },
+              ],
+            },
+          ],
+          options: { layout: "grid" },
         },
         {
           name: "welcomeCaption",
           title: "Leyenda de bienvenida",
           type: "string",
           initialValue: "Conoce más",
-        },
-        {
-          name: "background",
-          title: "Color de fondo de la bienvenida",
-          type: "string",
-          options: {
-            list: [
-              { title: "Negro", value: "black" },
-              { title: "Blanco", value: "white" },
-            ],
-            layout: "radio",
-          },
-          initialValue: "black",
         },
         // -- Columna izquierda (texto / historia) --
         {
@@ -141,6 +131,62 @@ export const home = defineType({
           name: "mediaVideoUrl",
           title: "URL video del lugar (Cloudinary/Vercel Blob)",
           type: "url",
+        },
+      ],
+    }),
+    // -------------------- DETAILS (desplegables) --------------------
+    defineField({
+      name: "details",
+      title: "Detalles (desplegables)",
+      description:
+        "Lista de desplegables (acordeón) con una imagen al lado. Cada desplegable tiene un título y sub-items.",
+      type: "object",
+      group: "details",
+      fields: [
+        { name: "eyebrow", title: "Antetítulo", type: "string" },
+        { name: "title", title: "Título de la sección", type: "string" },
+        {
+          name: "image",
+          title: "Imagen (lado derecho)",
+          type: "image",
+          options: { hotspot: true },
+          fields: [{ name: "alt", title: "Texto alternativo", type: "string" }],
+        },
+        {
+          name: "groups",
+          title: "Desplegables",
+          type: "array",
+          of: [
+            {
+              type: "object",
+              fields: [
+                { name: "title", title: "Título del desplegable", type: "string" },
+                {
+                  name: "items",
+                  title: "Sub-items",
+                  type: "array",
+                  of: [{ type: "string" }],
+                },
+              ],
+              preview: {
+                select: { title: "title", items: "items" },
+                prepare: ({ title, items }) => ({
+                  title: title || "Desplegable",
+                  subtitle: `${(items as string[] | undefined)?.length ?? 0} items`,
+                }),
+              },
+            },
+          ],
+        },
+        {
+          name: "linkLabel",
+          title: "Texto del enlace (opcional)",
+          type: "string",
+        },
+        {
+          name: "linkUrl",
+          title: "URL del enlace (opcional)",
+          type: "string",
         },
       ],
     }),
@@ -199,35 +245,31 @@ export const home = defineType({
         },
       ],
     }),
-    // -------------------- CLOSING (Cierre / atardecer) --------------------
+    // -------------------- GALLERY (Collage) --------------------
     defineField({
-      name: "closing",
-      title: "Cierre (salida / atardecer)",
+      name: "gallery",
+      title: "Collage (galería del sitio)",
       description:
-        "Escena espejo del Hero: la perspectiva avanza desde el interior hacia afuera cruzando las puertas, revelando el atardecer. Texto opcional y botón a contacto.",
+        "Mosaico de fotos del lugar. Sube tantas como quieras (20+ se ve genial). Se acomodan solas en un collage responsivo.",
       type: "object",
-      group: "closing",
+      group: "gallery",
       fields: [
         { name: "eyebrow", title: "Antetítulo", type: "string" },
-        { name: "title", title: "Título", type: "string" },
-        { name: "subtitle", title: "Subtítulo", type: "text", rows: 2 },
+        { name: "title", title: "Título de la sección", type: "string" },
         {
-          name: "ctaLabel",
-          title: "Texto del botón",
-          type: "string",
-          initialValue: "Reserva tu experiencia",
-        },
-        {
-          name: "ctaAnchor",
-          title: "Ancla del botón (sección destino)",
-          type: "string",
-          initialValue: "contact",
-        },
-        {
-          name: "poster",
-          title: "Imagen póster (mientras carga)",
-          type: "image",
-          options: { hotspot: true },
+          name: "images",
+          title: "Imágenes del collage",
+          type: "array",
+          of: [
+            {
+              type: "image",
+              options: { hotspot: true },
+              fields: [
+                { name: "alt", title: "Texto alternativo", type: "string" },
+              ],
+            },
+          ],
+          options: { layout: "grid" },
         },
       ],
     }),

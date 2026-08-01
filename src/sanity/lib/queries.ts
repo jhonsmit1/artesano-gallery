@@ -29,16 +29,20 @@ export const HOME_QUERY = groq`
 *[_type == "home"][0]{
   hero{
     eyebrow, title, subtitle, ctaLabel, ctaAnchor,
-    "posterUrl": poster.asset->url,
-    "videoDesktopUrl": coalesce(videoDesktopUrl, videoDesktop.asset->url),
-    "videoMobileUrl": coalesce(videoMobileUrl, videoMobile.asset->url)
+    images[]${imageAsset}
   },
   story{
-    "logo": logo{ ..., "lqip": asset->metadata.lqip, "aspectRatio": asset->metadata.dimensions.aspectRatio },
-    welcomeCaption, background,
+    welcomeImages[]${imageAsset},
+    welcomeCaption,
     eyebrow, title, body, ctaLabel, ctaHref,
     "mediaPosterUrl": mediaPoster.asset->url,
     "mediaVideoUrl": coalesce(mediaVideoUrl, mediaVideo.asset->url)
+  },
+  details{
+    eyebrow, title,
+    image${imageAsset},
+    groups[]{ title, items },
+    linkLabel, linkUrl
   },
   menu{
     eyebrow, title,
@@ -48,9 +52,9 @@ export const HOME_QUERY = groq`
       "pdfUrl": coalesce(pdfUrl, pdf.asset->url)
     }
   },
-  closing{
-    eyebrow, title, subtitle, ctaLabel, ctaAnchor,
-    "posterUrl": poster.asset->url
+  gallery{
+    eyebrow, title,
+    images[]${imageAsset}
   },
   contact{ eyebrow, title, text, buttonLabel, successMessage }
 }`;

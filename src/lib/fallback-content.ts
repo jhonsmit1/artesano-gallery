@@ -8,9 +8,10 @@ export const FALLBACK_SETTINGS: SiteSettings = {
   tagline: "Mixología, arte y atmósfera",
   navLinks: [
     { label: "Home", anchor: "hero" },
-    { label: "Historia", anchor: "historia" },
-    { label: "Menús", anchor: "menus" },
-    { label: "Contacto", anchor: "contact" },
+    { label: "Our Story", anchor: "historia" },
+    { label: "Resources", anchor: "menus" },
+    { label: "Gallery", anchor: "galeria" },
+    { label: "Inquire", anchor: "contact" },
   ],
   socials: [
     {
@@ -44,16 +45,12 @@ export const FALLBACK_SETTINGS: SiteSettings = {
 
 export const FALLBACK_HOME: HomeContent = {
   hero: {
-    eyebrow: "Cocktail Bar & Art Space",
-    title: "Donde la mixología se convierte en arte",
-    subtitle:
-      "Una experiencia sensorial entre cócteles de autor, luz y obra local.",
-    ctaLabel: "Descubre",
-    ctaAnchor: "momentos",
+    title: "Artesano Gallery",
+    images: [],
   },
   story: {
+    welcomeImages: [],
     welcomeCaption: "Conoce más",
-    background: "black",
     eyebrow: "Nuestra historia",
     title: "Artesano Bar",
     body: [
@@ -75,6 +72,34 @@ export const FALLBACK_HOME: HomeContent = {
     ctaLabel: "Conoce el menú",
     ctaHref: "#contact",
   },
+  details: {
+    eyebrow: "Los detalles",
+    title: "Todo lo que incluye",
+    groups: [
+      {
+        title: "Ceremonia",
+        items: [
+          "Espacios interior y exterior",
+          "Sillas para la ceremonia",
+          "Ensayo (día previo)",
+        ],
+      },
+      {
+        title: "Recepción",
+        items: ["Montaje de mesas", "Iluminación ambiental", "Sonido"],
+      },
+      {
+        title: "Alimentos y bebidas",
+        items: ["Coctelería de autor", "Menú de degustación", "Bar premium"],
+      },
+      {
+        title: "Suite privada",
+        items: ["Área reservada", "Atención dedicada"],
+      },
+    ],
+    linkLabel: "Ver lista de proveedores",
+    linkUrl: "#contact",
+  },
   menu: {
     eyebrow: "La Carta",
     title: "El Menú",
@@ -84,13 +109,10 @@ export const FALLBACK_HOME: HomeContent = {
       { title: "Eventos" },
     ],
   },
-  closing: {
-    eyebrow: "El atardecer",
-    title: "Hasta la próxima copa",
-    subtitle:
-      "Cruza las puertas y llévate la atmósfera. Te esperamos al caer la tarde.",
-    ctaLabel: "Reserva tu experiencia",
-    ctaAnchor: "contact",
+  gallery: {
+    eyebrow: "El lugar",
+    title: "Un vistazo a Artesano",
+    images: [],
   },
   contact: {
     eyebrow: "Contacto",

@@ -47,16 +47,13 @@ export type HeroContent = {
   subtitle?: string;
   ctaLabel?: string;
   ctaAnchor?: string;
-  posterUrl?: string;
-  videoDesktopUrl?: string;
-  videoMobileUrl?: string;
+  images?: SanityImage[];
 };
 
 export type StoryContent = {
   // Pantalla de bienvenida
-  logo?: SanityImage;
+  welcomeImages?: SanityImage[];
   welcomeCaption?: string;
-  background?: "black" | "white";
   // Columna izquierda (historia)
   eyebrow?: string;
   title?: string;
@@ -68,25 +65,36 @@ export type StoryContent = {
   mediaVideoUrl?: string;
 };
 
+export type DetailGroup = {
+  title?: string;
+  items?: string[];
+};
+
+export type DetailsContent = {
+  eyebrow?: string;
+  title?: string;
+  image?: SanityImage;
+  groups?: DetailGroup[];
+  linkLabel?: string;
+  linkUrl?: string;
+};
+
 export type MenuCard = {
   title?: string;
   image?: SanityImage;
   pdfUrl?: string;
 };
 
+export type GalleryContent = {
+  eyebrow?: string;
+  title?: string;
+  images?: SanityImage[];
+};
+
 export type MenuContent = {
   eyebrow?: string;
   title?: string;
   cards?: MenuCard[];
-};
-
-export type ClosingContent = {
-  eyebrow?: string;
-  title?: string;
-  subtitle?: string;
-  ctaLabel?: string;
-  ctaAnchor?: string;
-  posterUrl?: string;
 };
 
 export type ContactContent = {
@@ -100,7 +108,8 @@ export type ContactContent = {
 export type HomeContent = {
   hero?: HeroContent;
   story?: StoryContent;
+  details?: DetailsContent;
   menu?: MenuContent;
-  closing?: ClosingContent;
+  gallery?: GalleryContent;
   contact?: ContactContent;
 };

@@ -67,10 +67,10 @@ function Column({
 }) {
   return (
     <div data-foot-item className="flex flex-col items-center gap-3">
-      <h3 className="text-xs font-semibold uppercase tracking-[0.35em] text-amber-300/90">
+      <h3 className="text-xs font-semibold uppercase tracking-[0.35em] text-[#a9743c]">
         {label}
       </h3>
-      <div className="space-y-1 text-sm text-neutral-300">{children}</div>
+      <div className="space-y-1 text-sm text-[#6a5443]">{children}</div>
     </div>
   );
 }
@@ -131,24 +131,24 @@ export function Footer({ settings }: { settings: SiteSettings }) {
     <footer
       id="footer"
       ref={root}
-      className="relative overflow-hidden border-t border-white/10 bg-neutral-950 px-6 py-20 text-neutral-200"
+      className="relative overflow-hidden border-t border-[#dccdb4] bg-[#efe6d6] px-6 py-20 text-[#6a5443]"
     >
-      {/* Línea dorada con brillo en movimiento */}
+      {/* Línea caramelo con brillo en movimiento */}
       <div
         data-foot-shine
         className="pointer-events-none absolute inset-x-0 top-0 h-px"
         style={{
           background:
-            "linear-gradient(90deg, transparent 0%, rgba(232,210,168,0.15) 35%, rgba(245,210,140,0.9) 50%, rgba(232,210,168,0.15) 65%, transparent 100%)",
+            "linear-gradient(90deg, transparent 0%, rgba(169,116,60,0.15) 35%, rgba(169,116,60,0.9) 50%, rgba(169,116,60,0.15) 65%, transparent 100%)",
           backgroundSize: "200% 100%",
         }}
       />
       {/* Resplandor cálido ambiental */}
       <div
-        className="pointer-events-none absolute left-1/2 top-0 h-64 w-[80%] -translate-x-1/2 opacity-40"
+        className="pointer-events-none absolute left-1/2 top-0 h-64 w-[80%] -translate-x-1/2 opacity-50"
         style={{
           background:
-            "radial-gradient(ellipse at top, rgba(180,120,55,0.25), transparent 70%)",
+            "radial-gradient(ellipse at top, rgba(200,150,80,0.22), transparent 70%)",
         }}
       />
 
@@ -156,18 +156,18 @@ export function Footer({ settings }: { settings: SiteSettings }) {
         {/* Wordmark */}
         <div
           data-foot-mark
-          className="font-serif leading-none text-neutral-50"
+          className="font-serif leading-none text-[#2a1d14]"
           style={{ fontFamily: "Georgia, 'Times New Roman', serif" }}
         >
           <p className="text-4xl tracking-[0.12em] sm:text-5xl">ARTESANO</p>
-          <p className="mt-2 text-base tracking-[0.5em] text-amber-200/80 sm:text-lg">
+          <p className="mt-2 text-base tracking-[0.5em] text-[#a9743c] sm:text-lg">
             BAR
           </p>
         </div>
 
         <p
           data-foot-item
-          className="mt-8 text-xs font-semibold uppercase tracking-[0.45em] text-neutral-400"
+          className="mt-8 text-xs font-semibold uppercase tracking-[0.45em] text-[#a9743c]"
         >
           Visítanos
         </p>
@@ -181,7 +181,7 @@ export function Footer({ settings }: { settings: SiteSettings }) {
               <p>
                 <a
                   href={`tel:${b.phone.replace(/[^\d+]/g, "")}`}
-                  className="transition-colors hover:text-amber-200"
+                  className="transition-colors hover:text-[#a9743c]"
                 >
                   {b.phone}
                 </a>
@@ -210,7 +210,7 @@ export function Footer({ settings }: { settings: SiteSettings }) {
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={s.platform}
-                      className="inline-flex text-neutral-300 transition-all duration-300 hover:-translate-y-1 hover:text-amber-300 hover:drop-shadow-[0_0_8px_rgba(245,210,140,0.6)]"
+                      className="inline-flex text-[#6a5443] transition-all duration-300 hover:-translate-y-1 hover:text-[#a9743c] hover:drop-shadow-[0_0_8px_rgba(169,116,60,0.5)]"
                     >
                       <SocialIcon platform={s.platform} />
                     </a>
@@ -230,7 +230,7 @@ export function Footer({ settings }: { settings: SiteSettings }) {
           {...(reserveExternal
             ? { target: "_blank", rel: "noopener noreferrer" }
             : {})}
-          className="group mt-12 inline-flex items-center gap-2 rounded-full border border-amber-300/40 bg-amber-300/5 px-8 py-3 text-sm font-medium uppercase tracking-[0.2em] text-amber-100 transition-all duration-300 hover:border-amber-300 hover:bg-amber-300 hover:text-neutral-950 hover:shadow-[0_0_24px_rgba(245,210,140,0.45)]"
+          className="group mt-12 inline-flex items-center gap-2 rounded-full bg-[#a9743c] px-8 py-3 text-sm font-medium uppercase tracking-[0.2em] text-[#f6f1e8] transition-all duration-300 hover:bg-[#8f5f2e] hover:shadow-[0_8px_24px_rgba(169,116,60,0.4)]"
         >
           Reservar en línea
           <span className="transition-transform duration-300 group-hover:translate-x-1">
@@ -241,20 +241,20 @@ export function Footer({ settings }: { settings: SiteSettings }) {
         {/* Aviso de privacidad + copyright */}
         <p
           data-foot-item
-          className="mt-12 max-w-2xl text-balance text-xs leading-relaxed text-neutral-500"
+          className="mt-12 max-w-2xl text-balance text-xs leading-relaxed text-[#8a7462]"
         >
           Usamos Microsoft Clarity para mejorar la experiencia del sitio. Al
           navegar, aceptas la recolección de estos datos. Más detalles en{" "}
           <Link
             href="/privacidad"
-            className="font-semibold text-neutral-300 underline underline-offset-2 transition-colors hover:text-amber-200"
+            className="font-semibold text-[#6a5443] underline underline-offset-2 transition-colors hover:text-[#a9743c]"
           >
             nuestra política de privacidad
           </Link>
           .
         </p>
 
-        <p className="mt-6 text-xs text-neutral-600">
+        <p className="mt-6 text-xs text-[#a3937d]">
           © {year} {brand}. Todos los derechos reservados.
         </p>
       </div>

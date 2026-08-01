@@ -8,23 +8,21 @@ import { useGSAP } from "@gsap/react";
 import { gsap } from "@/lib/gsap";
 import type { StoryContent } from "@/sanity/lib/types";
 
-import { CocktailPour } from "@/components/ui/CocktailPour";
 import { PortableText } from "@/components/ui/PortableText";
+import { WelcomeReveal } from "@/components/ui/WelcomeReveal";
 
 /**
  * PARTE 2 — Pantalla de bienvenida e Historia.
  *
- *  - Bienvenida: el cóctel "se sirve" (canvas + scroll-scrub) y al llenarse
- *    aparece el wordmark. Si el Studio tiene un logo propio, se muestra ese.
- *  - Historia: layout asimétrico de 2 columnas. Izquierda = narrativa
- *    (arquitectura, metal, concepto). Derecha = video ambiental del lugar.
+ *  - Bienvenida: 2-3 logos que se cruzan con el scroll mientras el fondo
+ *    transita por tonos cálidos.
+ *  - Historia: layout asimétrico de 2 columnas. Izquierda = narrativa;
+ *    derecha = video ambiental del lugar.
  *
  * Todo el contenido es editable desde el Studio (grupo "Bienvenida e Historia").
  */
 export function Story({ data }: { data: StoryContent }) {
   const root = useRef<HTMLDivElement>(null);
-
-  const isWhite = data.background === "white";
 
   useGSAP(
     () => {
@@ -47,12 +45,15 @@ export function Story({ data }: { data: StoryContent }) {
   );
 
   return (
-    <section id="historia" ref={root}>
-      {/* ---------- Pantalla de bienvenida: cóctel servido (canvas) ---------- */}
-      <CocktailPour caption={data.welcomeCaption} light={isWhite} />
+    <section ref={root}>
+      {/* ---------- Pantalla de bienvenida: imágenes a pantalla completa ---------- */}
+      <WelcomeReveal images={data.welcomeImages} caption={data.welcomeCaption} />
 
       {/* ---------- Historia (2 columnas asimétricas) ---------- */}
-      <div className="bg-neutral-950 py-24 text-neutral-100 sm:py-32">
+      <div
+        id="historia"
+        className="scroll-mt-24 bg-[#f6f1e8] py-24 text-[#33241a] sm:py-32"
+      >
         <div
           data-story-grid
           className="mx-auto grid max-w-7xl items-center gap-12 px-6 lg:grid-cols-[5fr_7fr] lg:gap-20"
@@ -62,14 +63,14 @@ export function Story({ data }: { data: StoryContent }) {
             {data.eyebrow && (
               <p
                 data-reveal
-                className="mb-4 text-xs uppercase tracking-[0.35em] text-neutral-500"
+                className="mb-4 text-xs uppercase tracking-[0.35em] text-[#a9743c]"
               >
                 {data.eyebrow}
               </p>
             )}
             <h2
               data-reveal
-              className="mb-8 text-balance text-4xl font-semibold leading-tight sm:text-5xl"
+              className="mb-8 text-balance text-4xl font-semibold leading-tight text-[#2a1d14] sm:text-5xl"
             >
               {data.title ?? "Artesano Bar"}
             </h2>
@@ -80,7 +81,7 @@ export function Story({ data }: { data: StoryContent }) {
               <a
                 data-reveal
                 href={data.ctaHref || "#contact"}
-                className="mt-10 inline-block rounded-full border border-neutral-600 px-8 py-3 text-sm font-medium uppercase tracking-widest text-neutral-100 transition-colors hover:border-neutral-100 hover:bg-neutral-100 hover:text-neutral-950"
+                className="mt-10 inline-block rounded-full border border-[#a9743c]/50 px-8 py-3 text-sm font-medium uppercase tracking-widest text-[#6a5443] transition-colors hover:border-[#a9743c] hover:bg-[#a9743c] hover:text-[#f6f1e8]"
               >
                 {data.ctaLabel}
               </a>
@@ -90,7 +91,7 @@ export function Story({ data }: { data: StoryContent }) {
           {/* Columna derecha: video ambiental del lugar */}
           <div
             data-reveal
-            className="relative aspect-video overflow-hidden rounded-2xl bg-neutral-900"
+            className="relative aspect-video overflow-hidden rounded-2xl border border-[#dccdb4] bg-[#efe6d6]"
           >
             {data.mediaVideoUrl ? (
               <video
@@ -113,7 +114,7 @@ export function Story({ data }: { data: StoryContent }) {
                 className="object-cover"
               />
             ) : (
-              <div className="flex h-full w-full items-center justify-center text-sm uppercase tracking-[0.3em] text-neutral-600">
+              <div className="flex h-full w-full items-center justify-center text-sm uppercase tracking-[0.3em] text-[#a9743c]/60">
                 Video del lugar
               </div>
             )}

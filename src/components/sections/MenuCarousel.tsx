@@ -79,7 +79,7 @@ export function MenuCarousel({ data }: { data: MenuContent }) {
     return (
       <section
         id="menus"
-        className="flex h-svh items-center justify-center bg-neutral-950 text-neutral-500"
+        className="flex h-svh items-center justify-center bg-[#f6f1e8] text-[#a9743c]"
       >
         <p className="text-sm uppercase tracking-[0.3em]">
           Añade tarjetas del menú en el Studio
@@ -92,17 +92,17 @@ export function MenuCarousel({ data }: { data: MenuContent }) {
     <section
       id="menus"
       ref={root}
-      className="relative h-svh overflow-hidden bg-neutral-950 text-neutral-100"
+      className="relative h-svh overflow-hidden bg-[#f6f1e8] text-[#33241a]"
     >
       {/* Encabezado fijo de la sección */}
       <div className="pointer-events-none absolute left-6 top-8 z-20 sm:left-10">
         {data.eyebrow && (
-          <p className="text-[10px] uppercase tracking-[0.4em] text-neutral-500">
+          <p className="text-[10px] uppercase tracking-[0.4em] text-[#a9743c]">
             {data.eyebrow}
           </p>
         )}
         {data.title && (
-          <h2 className="mt-2 text-2xl font-semibold tracking-tight sm:text-3xl">
+          <h2 className="mt-2 text-2xl font-semibold tracking-tight text-[#2a1d14] sm:text-3xl">
             {data.title}
           </h2>
         )}
@@ -132,20 +132,20 @@ export function MenuCarousel({ data }: { data: MenuContent }) {
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
                 />
               ) : (
-                <div className="absolute inset-0 bg-gradient-to-br from-neutral-800 via-neutral-900 to-amber-950/40" />
+                <div className="absolute inset-0 bg-gradient-to-br from-[#e7dac6] via-[#d8c6ab] to-[#a9743c]/30" />
               )}
 
               {/* Degradado para legibilidad */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
 
               <div className="relative z-10 mt-auto w-full p-7">
                 {card.title && (
-                  <h3 className="text-3xl font-semibold uppercase tracking-wide sm:text-4xl">
+                  <h3 className="text-3xl font-semibold uppercase tracking-wide text-[#f8f2e8] [text-shadow:0_2px_12px_rgba(0,0,0,0.6)] sm:text-4xl">
                     {card.title}
                   </h3>
                 )}
-                <span className="mt-3 inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-neutral-300">
-                  {hasPdf ? "Ver carta (PDF)" : "PDF no disponible"}
+                <span className="mt-3 inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.25em] text-[#e8c99a]">
+                  {hasPdf ? "Inquire now" : "Próximamente"}
                   {hasPdf && <span aria-hidden>→</span>}
                 </span>
               </div>
@@ -153,7 +153,7 @@ export function MenuCarousel({ data }: { data: MenuContent }) {
           );
 
           const cardClass =
-            "group relative flex h-[68vh] w-[80vw] shrink-0 flex-col overflow-hidden rounded-xl border border-white/10 bg-neutral-900 sm:w-[50vw] lg:w-[32vw]";
+            "group relative flex h-[68vh] w-[80vw] shrink-0 flex-col overflow-hidden rounded-xl border border-[#dccdb4] bg-[#efe6d6] shadow-[0_10px_40px_rgba(90,70,50,0.12)] sm:w-[50vw] lg:w-[32vw]";
 
           return hasPdf ? (
             <a
@@ -162,7 +162,7 @@ export function MenuCarousel({ data }: { data: MenuContent }) {
               href={card.pdfUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className={`${cardClass} cursor-pointer transition-colors hover:border-amber-300/50`}
+              className={`${cardClass} cursor-pointer transition-colors hover:border-[#a9743c]`}
             >
               {inner}
             </a>
@@ -175,7 +175,7 @@ export function MenuCarousel({ data }: { data: MenuContent }) {
       </div>
 
       {/* Indicador de scroll */}
-      <div className="pointer-events-none absolute bottom-6 left-1/2 z-20 -translate-x-1/2 text-[10px] uppercase tracking-[0.3em] text-neutral-500">
+      <div className="pointer-events-none absolute bottom-6 left-1/2 z-20 -translate-x-1/2 text-[10px] uppercase tracking-[0.3em] text-[#a9743c]">
         Scroll →
       </div>
     </section>

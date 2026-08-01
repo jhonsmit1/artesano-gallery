@@ -84,14 +84,14 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         <div
           ref={overlayRef}
           aria-hidden
-          className="fixed inset-0 z-[100] flex items-end justify-between bg-neutral-950 p-8 text-neutral-100"
+          className="fixed inset-0 z-[100] flex items-end justify-between bg-[#f6f1e8] p-8 text-[#33241a]"
         >
-          <span className="text-sm uppercase tracking-[0.3em] text-neutral-400">
+          <span className="text-sm uppercase tracking-[0.3em] text-[#a9743c]">
             Artesano Gallery
           </span>
           <span className="font-mono text-6xl tabular-nums sm:text-8xl">
             <span ref={counterRef}>0</span>
-            <span className="text-neutral-500">%</span>
+            <span className="text-[#c9b99f]">%</span>
           </span>
         </div>
       )}

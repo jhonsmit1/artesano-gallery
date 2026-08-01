@@ -1,11 +1,14 @@
 @import "tailwindcss";
 
 :root {
-  --background: #0a0a0a;
-  --foreground: #ededed;
-  /* Acento ocre/ámbar cálido (inspirado en el sitio de referencia). */
-  --accent: #b45309;
-  --accent-soft: #d97706;
+  /* Paleta cálida: crema, beige y café. */
+  --background: #f6f1e8;
+  --foreground: #33241a;
+  --beige: #efe6d6;
+  --coffee: #6a5443;
+  /* Acento caramelo/café. */
+  --accent: #a9743c;
+  --accent-soft: #c08e50;
 }
 
 @theme inline {
